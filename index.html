@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> Test </title>
+    <style>
+        h1 {
+            text-align: center;
+        }
+
+        nav {
+            text-align: center;
+        }
+    </style>
+    <script>
+
+        class Student {
+            constructor() {
+                this.three = []
+            }
+
+            find_three() {
+                for (let i = 0; i < 5; i++) {
+                    if (this.input[i].value > 3 && this.input[i].value < 7) {
+                        this.three.push(i + 1)
+                    }
+                }
+                this.p.innerText = `Номери предметів з яких трійки - ${this.three}`
+            }
+
+            render(containerID) {
+                var container = document.getElementById(containerID)
+                container.innerText = ""
+
+                this.input = []
+
+                for (let i = 0; i < 5; i++) {
+                    var samp = document.createElement("samp")
+                    samp.innerText = `Предмет №${i + 1} - `
+                    container.appendChild(samp)
+
+                    var input = document.createElement("input")
+                    input.type = "number"
+                    this.input.push(input)
+                    container.appendChild(input)
+
+                    var br = document.createElement("br")
+                    container.appendChild(br)
+                }
+
+                var btn = document.createElement("button")
+                btn.innerText = "Пошук трійок"
+                btn.onclick = this.find_three.bind(this)
+                container.appendChild(btn)
+
+                var div = document.createElement("div")
+                this.p = document.createElement("p")
+                div.appendChild(this.p)
+                container.appendChild(div)
+            }
+
+        }
+
+        function student() {
+            var student = new Student()
+            student.render("result")
+        }
+
+        class Words {
+            constructor() {
+                this.words = 0
+            }
+
+            find_words() {
+                for (let i = 0; i < 10; i++) {
+                    if (this.input[i].value[0] == this.input[i].value[this.input[i].value.length - 1]) {
+                        this.words++
+                    }
+                }
+                this.p.innerText = `Кількість слів у яких парше літера і остання літера однакові - ${this.words}`
+            }
+
+            render(containerID) {
+                var container = document.getElementById(containerID)
+                container.innerText = ""
+
+                this.input = []
+
+                for (let i = 0; i < 10; i++) {
+                    var samp = document.createElement("samp")
+                    samp.innerText = `Слово №${i + 1} - `
+                    container.appendChild(samp)
+
+                    var input = document.createElement("input")
+                    input.type = "text"
+                    this.input.push(input)
+                    container.appendChild(input)
+
+                    var br = document.createElement("br")
+                    container.appendChild(br)
+                }
+
+                var btn = document.createElement("button")
+                btn.innerText = "Пошук трійок"
+                btn.onclick = this.find_words.bind(this)
+                container.appendChild(btn)
+
+                var div = document.createElement("div")
+                this.p = document.createElement("p")
+                div.appendChild(this.p)
+                container.appendChild(div)
+            }
+        }
+
+        function words() {
+            var words = new Words()
+            words.render("result")
+        }
+
+        class Filter {
+            constructor() {
+                this.array = []
+            }
+
+            filter() {
+                var size = parseInt(this.input.value)
+
+                for (let i = 0; i < size; i++) {
+                    var r = Math.floor(Math.random() * 100)
+                    this.array.push(r)
+                }
+
+                this.p1.innerText = `Згенерований масив - ${this.array}`
+
+                var array = this.array.filter((el, i, arr) => { if (arr[0] < el) return el; })
+
+                this.p2.innerText = `Зформований масив - ${array}`
+            }
+
+            render(containerID) {
+                var container = document.getElementById(containerID)
+                container.innerText = ''
+
+                var samp = document.createElement("samp")
+                samp.innerText = "Розмір масиву - "
+                container.appendChild(samp)
+
+                this.input = document.createElement("input")
+                this.input.type = "number"
+                container.appendChild(this.input)
+
+                var btn = document.createElement("button")
+                btn.innerText = "Згенерувати"
+                btn.onclick = this.filter.bind(this)
+                container.appendChild(btn)
+
+                this.p1 = document.createElement("p")
+                container.appendChild(this.p1)
+
+                this.p2 = document.createElement("p")
+                container.appendChild(this.p2)
+            }
+        }
+
+        function filter() {
+            var filter = new Filter()
+            filter.render("result")
+        }
+
+        class Mul_array {
+            constructor() {
+                this.array = []
+            }
+
+            add() {
+                this.array.push(parseInt(this.input.value))
+                this.input.value = ''
+            }
+
+            mul() {
+                this.p1.innerText = `Початковий масив - ${this.array}`
+
+                for (let i = 0; i < this.array.length; i++) {
+                    this.array[i] = this.array[i] * 17
+                }
+
+                this.p2.innerText = `Отриманий масив - ${this.array}`
+            }
+
+            render(containerID) {
+                var container = document.getElementById(containerID)
+                container.innerText = ""
+
+                var samp = document.createElement("samp")
+                samp.innerText = `Елемент - `
+                container.appendChild(samp)
+
+                this.input = document.createElement("input")
+                this.input.type = "text"
+                container.appendChild(this.input)
+
+                var br = document.createElement("br")
+                container.appendChild(br)
+
+                var btn1 = document.createElement("button")
+                btn1.innerText = "Додати елемент"
+                btn1.onclick = this.add.bind(this)
+                container.appendChild(btn1)
+
+                var btn2 = document.createElement("button")
+                btn2.innerText = "Помножити масив"
+                btn2.onclick = this.mul.bind(this)
+                container.appendChild(btn2)
+
+                var div = document.createElement("div")
+
+                this.p1 = document.createElement("p")
+                div.appendChild(this.p1)
+
+                this.p2 = document.createElement("p")
+                div.appendChild(this.p2)
+
+                container.appendChild(div)
+            }
+        }
+
+        function mul_array() {
+            var mul_array = new Mul_array()
+            mul_array.render("result")
+        }
+
+        class Sum_elements_array {
+            constructor() {
+                this.array = []
+                this.sum = 0
+            }
+
+            add() {
+                this.array.push(parseInt(this.input.value))
+                this.input.value = ''
+            }
+
+            get_sum() {
+                this.p1.innerText = `Масив - ${this.array}`
+                var start_index = -1
+
+                for (let i = 0; i < this.array.length; i++) {
+                    if (this.array[i] == 78 && start_index < 0) {
+                        start_index = i
+                    }
+                }
+
+                start_index++
+
+                if (start_index != -1) {
+                    for (let i = start_index; i < this.array.length; i++) {
+                        this.sum = this.sum + this.array[i]
+                    }
+                }
+
+                this.p2.innerText = `Сума елементів масиву після елемента 78 - ${this.sum}`
+
+            }
+
+            render(containerID) {
+                var container = document.getElementById(containerID)
+                container.innerText = ""
+
+                this.input
+
+                var samp = document.createElement("samp")
+                samp.innerText = `Елемент - `
+                container.appendChild(samp)
+
+                this.input = document.createElement("input")
+                this.input.type = "text"
+                container.appendChild(this.input)
+
+                var br = document.createElement("br")
+                container.appendChild(br)
+
+                var btn1 = document.createElement("button")
+                btn1.innerText = "Додати елемент"
+                btn1.onclick = this.add.bind(this)
+                container.appendChild(btn1)
+
+                var btn = document.createElement("button")
+                btn.innerText = "Знайти суму"
+                btn.onclick = this.get_sum.bind(this)
+                container.appendChild(btn)
+
+                var div = document.createElement("div")
+
+                this.p1 = document.createElement("p")
+                div.appendChild(this.p1)
+
+                this.p2 = document.createElement("p")
+                div.appendChild(this.p2)
+
+                container.appendChild(div)
+            }
+        }
+
+        function sum_elements_array() {
+            var sum_elements_array = new Sum_elements_array()
+            sum_elements_array.render("result")
+        }
+
+        class Simulator {
+            constructor(output_result) {
+                this.number1 = parseFloat(Math.floor(Math.random() * 100))
+                this.number2 = parseFloat(Math.floor(Math.random() * 100))
+                this.operation = parseFloat(Math.floor(Math.random() * 4))
+                this.result
+                this.output_result = output_result
+            }
+
+            check() {
+                var result_users = parseFloat(this.inp3.value)
+                switch (this.operation) {
+                    case 0:
+                        this.result = this.number1 + this.number2
+                        break
+                    case 1:
+                        this.result = this.number1 - this.number2
+                        break
+                    case 2:
+                        this.result = this.number1 * this.number2
+                        break
+                    case 3:
+                        this.result = this.number1 / this.number2
+                        break
+                }
+                if (result_users == this.result)
+                {
+                    this.p.innerText = "OK"
+                    this.output_result(1)
+                }
+                else
+                {
+                    this.p.innerText = "No"
+                    this.output_result(0)
+                }
+            }
+
+            render(containerID) {
+                var container = document.getElementById(containerID)
+                container.innerText = ''
+
+                var samp1 = document.createElement("samp")
+                samp1.innerText = "First number"
+                container.appendChild(samp1)
+
+                var inp1 = document.createElement("input")
+                inp1.value = this.number1
+                container.appendChild(inp1)
+
+                var br = document.createElement("br")
+                container.appendChild(br)
+
+                var samp2 = document.createElement("samp")
+                switch (this.operation) {
+                    case 0:
+                        samp2.innerText = "First number: +"
+                        break
+                    case 1:
+                        samp2.innerText = "First number: -"
+                        break
+                    case 2:
+                        samp2.innerText = "First number: *"
+                        break
+                    case 3:
+                        samp2.innerText = "First number: /"
+                        break
+                }
+                container.appendChild(samp2)
+
+                var br = document.createElement("br")
+                container.appendChild(br)
+
+                var samp3 = document.createElement("samp")
+                samp3.innerText = "Second number"
+                container.appendChild(samp3)
+
+                var inp2 = document.createElement("input")
+                inp2.value = this.number2
+                container.appendChild(inp2)
+
+                var hr = document.createElement("hr")
+                container.appendChild(hr)
+
+                var samp4 = document.createElement("samp")
+                samp4.innerText = "Your answer:"
+                container.appendChild(samp4)
+
+                this.inp3 = document.createElement("input")
+                container.appendChild(this.inp3)
+
+                var br = document.createElement("br")
+                container.appendChild(br)
+
+                var btn = document.createElement("button")
+                btn.innerText = "Check"
+                btn.onclick = this.check.bind(this)
+                container.appendChild(btn)
+
+                this.p = document.createElement("p")
+                container.appendChild(this.p)
+
+            }
+        }
+
+        class Tester {
+            constructor() {
+                this.task = []
+                this.count = 0
+                this.current = 0
+                this.score = 0 
+            }
+
+            go() {
+                var simulator = new Simulator(this.result)
+                simulator.render("div1")
+            }
+
+            result=(result)=>{ 
+                this.count = this.count + 1
+                this.inp1.value = this.count
+                if (result == 1)
+                {
+                    this.current = this.current + 1
+                    this.inp2.value = this.current
+                }
+                this.go()
+            }
+
+            render(containerID) {
+                var container = document.getElementById(containerID)
+
+                var br = document.createElement("br")
+                container.appendChild(br)
+
+                var btn = document.createElement("button")
+                btn.innerText = "Start"
+                btn.onclick = this.go.bind(this)
+                container.appendChild(btn)
+
+                var br = document.createElement("br")
+                container.appendChild(br)
+
+                var samp1 = document.createElement("samp")
+                samp1.innerText = "Total questions count:"
+                container.appendChild(samp1) 
+
+                this.inp1 = document.createElement("input")
+                this.inp1.value = "0"
+                container.appendChild(this.inp1)
+
+                var br = document.createElement("br")
+                container.appendChild(br)
+
+                var samp2 = document.createElement("samp")
+                samp2.innerText = "Current question:"
+                container.appendChild(samp2) 
+
+                this.inp2 = document.createElement("input")
+                this.inp2.value = "0"
+                container.appendChild(this.inp2)
+
+                var br = document.createElement("br")
+                container.appendChild(br)
+
+                var samp3 = document.createElement("samp")
+                samp3.innerText = "Score:"
+                container.appendChild(samp3) 
+
+                this.inp3 = document.createElement("input")
+                this.inp3.value = "0"
+                container.appendChild(this.inp3)
+
+                var br = document.createElement("br")
+                container.appendChild(br)
+
+                var hr = document.createElement("hr")
+                container.appendChild(hr)
+
+                this.div1 = document.createElement("div")
+                this.div1.id = "div1"
+                container.appendChild(this.div1)
+
+                this.div2 = document.createElement("div")
+                container.appendChild(this.div2)
+            }
+        }
+
+        function simulator() {
+            var tester = new Tester()
+            tester.render("result")
+        }
+
+        window.onload = function () {
+            document.getElementById("1").onclick = student
+            document.getElementById("2").onclick = words
+            document.getElementById("3").onclick = filter
+            document.getElementById("4").onclick = mul_array
+            document.getElementById("5").onclick = sum_elements_array
+            document.getElementById("6").onclick = simulator
+        }
+
+    </script>
+</head>
+
+<body>
+
+    <header>
+        <h1> Test </h1>
+        <hr>
+    </header>
+
+    <main>
+        <nav>
+            <button id="1"> Учень </button>
+            <button id="2"> Слова </button>
+            <button id="3"> Фільтер </button>
+            <button id="4"> Множення масиву </button>
+            <button id="5"> Сума елементів масиву </button>
+            <button id="6"> Тренажер арифметичних операцій </button>
+        </nav>
+
+        <div id="result">
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>
