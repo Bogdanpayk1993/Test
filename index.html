@@ -14,6 +14,14 @@
         nav {
             text-align: center;
         }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        p {
+            margin: 0;
+        }
     </style>
     <script>
 
@@ -178,25 +186,31 @@
             add() {
                 this.array.push(parseInt(this.input.value))
                 this.input.value = ''
+                this.samp.innerText = `Вхідний масив - [${this.array}]`
             }
 
             mul() {
-                this.p1.innerText = `Початковий масив - ${this.array}`
-
                 for (let i = 0; i < this.array.length; i++) {
                     this.array[i] = this.array[i] * 17
                 }
 
-                this.p2.innerText = `Отриманий масив - ${this.array}`
+                this.samp2.innerText = `Отриманий масив - [${this.array}]`
             }
 
             render(containerID) {
                 var container = document.getElementById(containerID)
                 container.innerText = ""
 
-                var samp = document.createElement("samp")
-                samp.innerText = `Елемент - `
-                container.appendChild(samp)
+                this.samp = document.createElement("samp")
+                this.samp.innerText = "Вхідний масив - []"
+                container.appendChild(this.samp)
+
+                var br = document.createElement("br")
+                container.appendChild(br)
+
+                var samp1 = document.createElement("samp")
+                samp1.innerText = `Елемент - `
+                container.appendChild(samp1)
 
                 this.input = document.createElement("input")
                 this.input.type = "text"
@@ -215,15 +229,11 @@
                 btn2.onclick = this.mul.bind(this)
                 container.appendChild(btn2)
 
-                var div = document.createElement("div")
+                var br = document.createElement("br")
+                container.appendChild(br)
 
-                this.p1 = document.createElement("p")
-                div.appendChild(this.p1)
-
-                this.p2 = document.createElement("p")
-                div.appendChild(this.p2)
-
-                container.appendChild(div)
+                this.samp2 = document.createElement("samp")
+                container.appendChild(this.samp2)
             }
         }
 
@@ -241,10 +251,10 @@
             add() {
                 this.array.push(parseInt(this.input.value))
                 this.input.value = ''
+                this.samp.innerText = `Вхідний масив - [${this.array}]`
             }
 
-            get_sum() {
-                this.p1.innerText = `Масив - ${this.array}`
+            sum() {
                 var start_index = -1
 
                 for (let i = 0; i < this.array.length; i++) {
@@ -261,7 +271,7 @@
                     }
                 }
 
-                this.p2.innerText = `Сума елементів масиву після елемента 78 - ${this.sum}`
+                this.samp2.innerText = `Сума елементів масиву після елемента 78 - ${this.sum}`
 
             }
 
@@ -271,9 +281,16 @@
 
                 this.input
 
-                var samp = document.createElement("samp")
-                samp.innerText = `Елемент - `
-                container.appendChild(samp)
+                this.samp = document.createElement("samp")
+                this.samp.innerText = "Вхідний масив - []"
+                container.appendChild(this.samp)
+
+                var br = document.createElement("br")
+                container.appendChild(br)
+
+                var samp1 = document.createElement("samp")
+                samp1.innerText = `Елемент - `
+                container.appendChild(samp1)
 
                 this.input = document.createElement("input")
                 this.input.type = "text"
@@ -289,18 +306,15 @@
 
                 var btn = document.createElement("button")
                 btn.innerText = "Знайти суму"
-                btn.onclick = this.get_sum.bind(this)
+                btn.onclick = this.sum.bind(this)
                 container.appendChild(btn)
 
-                var div = document.createElement("div")
+                var br = document.createElement("br")
+                container.appendChild(br)
 
-                this.p1 = document.createElement("p")
-                div.appendChild(this.p1)
+                this.samp2 = document.createElement("samp")
+                container.appendChild(this.samp2)
 
-                this.p2 = document.createElement("p")
-                div.appendChild(this.p2)
-
-                container.appendChild(div)
             }
         }
 
@@ -311,10 +325,11 @@
 
         class Simulator {
             constructor(output_result) {
-                this.number1 = parseFloat(Math.floor(Math.random() * 100))
-                this.number2 = parseFloat(Math.floor(Math.random() * 100))
+                this.number1 = parseFloat(Math.floor(Math.random() * 10))
+                this.number2 = parseFloat(Math.floor(Math.random() * 10))
                 this.operation = parseFloat(Math.floor(Math.random() * 4))
                 this.result
+                this.output = []
                 this.output_result = output_result
             }
 
@@ -323,32 +338,41 @@
                 switch (this.operation) {
                     case 0:
                         this.result = this.number1 + this.number2
+                        this.output.push(`${this.number1} + ${this.number2} = ${result_users}`)
+                        this.output.push(`${this.number1} + ${this.number2} = ${this.result}`)
                         break
                     case 1:
                         this.result = this.number1 - this.number2
+                        this.output.push(`${this.number1} - ${this.number2} = ${result_users}`)
+                        this.output.push(`${this.number1} - ${this.number2} = ${this.result}`)
                         break
                     case 2:
                         this.result = this.number1 * this.number2
+                        this.output.push(`${this.number1} * ${this.number2} = ${result_users}`)
+                        this.output.push(`${this.number1} * ${this.number2} = ${this.result}`)
                         break
                     case 3:
                         this.result = this.number1 / this.number2
+                        this.output.push(`${this.number1} / ${this.number2} = ${result_users}`)
+                        this.output.push(`${this.number1} / ${this.number2} = ${this.result}`)
                         break
                 }
-                if (result_users == this.result)
-                {
+                if (result_users == this.result) {
                     this.p.innerText = "OK"
                     this.output_result(1)
                 }
-                else
-                {
+                else {
                     this.p.innerText = "No"
-                    this.output_result(0)
+                    this.output_result(this.output)
                 }
             }
 
             render(containerID) {
                 var container = document.getElementById(containerID)
                 container.innerText = ''
+
+                var hr = document.createElement("hr")
+                container.appendChild(hr)
 
                 var samp1 = document.createElement("samp")
                 samp1.innerText = "First number"
@@ -414,57 +438,86 @@
         }
 
         class Tester {
-            constructor() {
+            constructor(count) {
                 this.task = []
-                this.count = 0
+                this.count = count
                 this.current = 0
-                this.score = 0 
+                this.score = 0
             }
 
             go() {
                 var simulator = new Simulator(this.result)
-                simulator.render("div1")
+                simulator.render("div")
             }
 
-            result=(result)=>{ 
-                this.count = this.count + 1
-                this.inp1.value = this.count
-                if (result == 1)
-                {
-                    this.current = this.current + 1
-                    this.inp2.value = this.current
+            result = (result) => {
+                this.current = this.current + 1
+                this.inp2.value = this.current
+                if (result == 1) {
+                    this.score = this.score + (100 / this.count)
+                    this.inp3.value = this.score
                 }
-                this.go()
+                else {
+                    this.task.push(result)
+                }
+                if (this.count != this.current) {
+                    this.go()
+                }
+                else {
+                    if (this.score == 100) {
+                        var h1 = document.createElement("h1")
+                        h1.innerText = "Всі відповіді були правельні"
+                        this.div.innerText = ""
+                        this.div.appendChild(h1)
+                    }
+                    else {
+                        var h1 = document.createElement("h1")
+                        h1.innerText = "Не всі відповіді були правельні"
+                        this.div.innerText = ""
+                        this.div.appendChild(h1)
+                        for (let i = 0; i < this.task.length; i++) {
+                            var tr = document.createElement("tr")
+
+                            var td = document.createElement("td")
+                            td.style.border = "2px solid black"
+                            td.style.color = "red"
+                            td.innerText = this.task[i][0]
+                            tr.appendChild(td)
+
+                            var td = document.createElement("td")
+                            td.style.border = "2px solid black"
+                            td.style.color = "green"
+                            td.innerText = this.task[i][1]
+                            tr.appendChild(td)
+
+                            this.table.appendChild(tr)
+                        }
+                        this.div.appendChild(this.table)
+                    }
+                }
             }
 
             render(containerID) {
                 var container = document.getElementById(containerID)
-
-                var br = document.createElement("br")
-                container.appendChild(br)
-
-                var btn = document.createElement("button")
-                btn.innerText = "Start"
-                btn.onclick = this.go.bind(this)
-                container.appendChild(btn)
+                container.innerText = ""
 
                 var br = document.createElement("br")
                 container.appendChild(br)
 
                 var samp1 = document.createElement("samp")
                 samp1.innerText = "Total questions count:"
-                container.appendChild(samp1) 
+                container.appendChild(samp1)
 
-                this.inp1 = document.createElement("input")
-                this.inp1.value = "0"
-                container.appendChild(this.inp1)
+                var inp1 = document.createElement("input")
+                inp1.value = this.count
+                container.appendChild(inp1)
 
                 var br = document.createElement("br")
                 container.appendChild(br)
 
                 var samp2 = document.createElement("samp")
                 samp2.innerText = "Current question:"
-                container.appendChild(samp2) 
+                container.appendChild(samp2)
 
                 this.inp2 = document.createElement("input")
                 this.inp2.value = "0"
@@ -475,7 +528,7 @@
 
                 var samp3 = document.createElement("samp")
                 samp3.innerText = "Score:"
-                container.appendChild(samp3) 
+                container.appendChild(samp3)
 
                 this.inp3 = document.createElement("input")
                 this.inp3.value = "0"
@@ -484,20 +537,32 @@
                 var br = document.createElement("br")
                 container.appendChild(br)
 
-                var hr = document.createElement("hr")
-                container.appendChild(hr)
+                this.div = document.createElement("div")
+                this.div.id = "div"
+                container.appendChild(this.div)
 
-                this.div1 = document.createElement("div")
-                this.div1.id = "div1"
-                container.appendChild(this.div1)
+                this.table = document.createElement("table")
 
-                this.div2 = document.createElement("div")
-                container.appendChild(this.div2)
+                var tr = document.createElement("tr")
+
+                var td = document.createElement("td")
+                td.innerText = "Не правельні відповіді"
+                td.style.border = "2px solid black"
+                tr.appendChild(td)
+
+                var td = document.createElement("td")
+                td.innerText = "Правельні відповіді"
+                td.style.border = "2px solid black"
+                tr.appendChild(td)
+
+                this.table.appendChild(tr)
+
+                this.go()
             }
         }
 
         function simulator() {
-            var tester = new Tester()
+            var tester = new Tester(20)
             tester.render("result")
         }
 
